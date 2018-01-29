@@ -54,42 +54,30 @@ static void convertSeed6(std::vector<CAddress> &vSeedsOut, const SeedSpec6 *data
  */
 static Checkpoints::MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 11111, uint256("0x0000000069e244f73d78e8fd29ba2fd2ed618bd6fa2ee92559f542fdb26e7c1d"))
-        ( 33333, uint256("0x000000002dd5588a74784eaa7ab0507a18ad16a236e7b1ce69f00d7ddfb5d0a6"))
-        ( 74000, uint256("0x0000000000573993a3c9e41ce34471c079dcf5f52a0e824a81e7f953b8661a20"))
-        (105000, uint256("0x00000000000291ce28027faea320c8d2b054b2e0fe44a773f3eefb151d6bdc97"))
-        (134444, uint256("0x00000000000005b12ffd4cd315cd34ffd4a594f430ac814c91184a0d42d2b0fe"))
-        (168000, uint256("0x000000000000099e61ea72015e79632f216fe6cb33d7899acb35b75c8303b763"))
-        (193000, uint256("0x000000000000059f452a5f7340de6682a977387c17010ff6e6c3bd83ca8b1317"))
-        (210000, uint256("0x000000000000048b95347e83192f69cf0366076336c639f9b7228e9ba171342e"))
-        (216116, uint256("0x00000000000001b4f4b433e81ee46494af945cf96014816a4e2370f11b23df4e"))
-        (225430, uint256("0x00000000000001c108384350f74090433e7fcf79a606b8e797f065b130575932"))
-        (250000, uint256("0x000000000000003887df1f29024b06fc2200b55f8af8f35453d7be294df2d214"))
-        (279000, uint256("0x0000000000000001ae8c72a0b0c301f67e3afca10e819efa9041e458e9bd7e40"))
-        (295000, uint256("0x00000000000000004d9b4ef50f0f9d686fd69db2e03af35a100370c64632a983"))
+        ( 0, uint256("0x0000002d55a26e46ca7b173ab176d955258782a776a17a10f6d7fed98ce55a64"))
         ;
 static const Checkpoints::CCheckpointData data = {
         &mapCheckpoints,
-        1397080064, // * UNIX timestamp of last checkpoint block
-        36544669,   // * total number of transactions between genesis and last checkpoint
+        1516949303, // * UNIX timestamp of last checkpoint block
+        0,   // * total number of transactions between genesis and last checkpoint
                     //   (the tx=... number in the SetBestChain debug.log lines)
-        60000.0     // * estimated number of transactions per day after checkpoint
+        500     // * estimated number of transactions per day after checkpoint
     };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        ( 546, uint256("000000002a936ca763904c3c35fce2f3556c559c0214345d31b1bcebf76acb70"))
+        ( 0, uint256("0x0000003ec29b0a1aeef51895e8be49211289df292c404b61c87d7194843f3b96"))
         ;
 static const Checkpoints::CCheckpointData dataTestnet = {
         &mapCheckpointsTestnet,
-        1337966069,
-        1488,
-        300
+        1516949303,
+        0,
+        250
     };
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
         boost::assign::map_list_of
-        ( 0, uint256("0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"))
+        ( 0, uint256("0x6abc13f01d22cd655f9b2a4be2df4cce2aba8414acfdb32c18c3e59edf675c20"))
         ;
 static const Checkpoints::CCheckpointData dataRegtest = {
         &mapCheckpointsRegtest,
@@ -112,9 +100,9 @@ public:
         pchMessageStart[1] = 0xbe;
         pchMessageStart[2] = 0xb4;
         pchMessageStart[3] = 0xd9;
-        vAlertPubKey = ParseHex("04fc9702847840aaf195de8442ebecedf5b095cdbb9bc716bda9110971b28a49e0ead8564ff0db22209e0374782c093bb899692d524e9d6a6956e7c5ecbcd68284");
+        vAlertPubKey = ParseHex("04321b77dd21834c0f443e672f926e9b575ca34ef79eeda3636c4d11f1b692f36fcdf2161d47b8ac4a6a6597b42532c1c177ad598b79f3b08a144e063fd414a0ab");
         nDefaultPort = 8333;
-        bnProofOfWorkLimit = ~uint256(0) >> 32;
+        bnProofOfWorkLimit = ~uint256(0) >> 26;
         nSubsidyHalvingInterval = 210000;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -133,38 +121,59 @@ public:
          *     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
          *   vMerkleTree: 4a5e1e
          */
-        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        const char* pszTimestamp = "dtdream grimlock";
         CMutableTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 486604799 << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
         txNew.vout[0].nValue = 50 * COIN;
-        txNew.vout[0].scriptPubKey = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+        txNew.vout[0].scriptPubKey = CScript() << ParseHex("0401d6461fece0b03f683c0b73d520ef6a80dd918b1c49072b5179c56d40feb9ee3f64aa9668f5bbecf38c05db9ad7e8828e6932c059b736796bbe6ca1340312d8") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime    = 1231006505;
-        genesis.nBits    = 0x1d00ffff;
-        genesis.nNonce   = 2083236893;
+        genesis.nTime    = 1516949303;
+        genesis.nBits    = 0x1d3fffff;
+        genesis.nNonce   = 2105047687;
+
+        hashGenesisBlock = uint256("0x0000002d55a26e46ca7b173ab176d955258782a776a17a10f6d7fed98ce55a64");
+        if (false && genesis.GetHash() != hashGenesisBlock)
+        {
+            printf("recalculating params for mainnet.\n");
+            printf("old mainnet genesis nonce: %u\n", genesis.nNonce);
+            printf("old mainnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+            // deliberately empty for loop finds nonce value.
+            for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ }
+            printf("new mainnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+            printf("new mainnet genesis nonce: %u\n", genesis.nNonce);
+            printf("new mainnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+        }
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
-        assert(genesis.hashMerkleRoot == uint256("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        assert(hashGenesisBlock == uint256("0x0000002d55a26e46ca7b173ab176d955258782a776a17a10f6d7fed98ce55a64"));
+        assert(genesis.hashMerkleRoot == uint256("0x95f549366389f33499bbdd8a487bcdd698b65353aa5822b24fa72c99c93e5c33"));
 
-        vSeeds.push_back(CDNSSeedData("bitcoin.sipa.be", "seed.bitcoin.sipa.be"));
-        vSeeds.push_back(CDNSSeedData("bluematt.me", "dnsseed.bluematt.me"));
-        vSeeds.push_back(CDNSSeedData("dashjr.org", "dnsseed.bitcoin.dashjr.org"));
-        vSeeds.push_back(CDNSSeedData("bitcoinstats.com", "seed.bitcoinstats.com"));
-        vSeeds.push_back(CDNSSeedData("xf2.org", "bitseed.xf2.org"));
+        vFixedSeeds.clear();
+        vSeeds.clear();
+//        vSeeds.push_back(CDNSSeedData("bitcoin.sipa.be", "seed.bitcoin.sipa.be"));
+//        vSeeds.push_back(CDNSSeedData("bluematt.me", "dnsseed.bluematt.me"));
+//        vSeeds.push_back(CDNSSeedData("dashjr.org", "dnsseed.bitcoin.dashjr.org"));
+//        vSeeds.push_back(CDNSSeedData("bitcoinstats.com", "seed.bitcoinstats.com"));
+//        vSeeds.push_back(CDNSSeedData("xf2.org", "bitseed.xf2.org"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(0);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
-        base58Prefixes[SECRET_KEY] =     list_of(128);
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,1);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,6);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,129);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x05)(0x89)(0xB3)(0x1F).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x05)(0x89)(0xAE)(0xE5).convert_to_container<std::vector<unsigned char> >();
 
-        convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
+//        base58Prefixes[PUBKEY_ADDRESS] = list_of(0);
+//        base58Prefixes[SCRIPT_ADDRESS] = list_of(5);
+//        base58Prefixes[SECRET_KEY] =     list_of(128);
+//        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xB2)(0x1E);
+//        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xAD)(0xE4);
+
+//        convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
         fRequireRPCPassword = true;
         fMiningRequiresPeers = true;
@@ -195,7 +204,7 @@ public:
         pchMessageStart[1] = 0x11;
         pchMessageStart[2] = 0x09;
         pchMessageStart[3] = 0x07;
-        vAlertPubKey = ParseHex("04302390343f91cc401d56d68b123028bf52e5fca1939df127f63c6467cdf9c8e2c14b61104cf817d0b780da337893ecc4aaff1309e536162dabbdb45200ca2b0a");
+        vAlertPubKey = ParseHex("0401d6461fece0b03f683c0b73d520ef6a80dd918b1c49072b5179c56d40feb9ee3f64aa9668f5bbecf38c05db9ad7e8828e6932c059b736796bbe6ca1340312d8");
         nDefaultPort = 18333;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
@@ -205,23 +214,43 @@ public:
         nTargetSpacing = 10 * 60;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1296688602;
-        genesis.nNonce = 414098458;
+        genesis.nTime = 1516949303;
+        genesis.nNonce = 510912884;
+
+        hashGenesisBlock = uint256("0x0000003ec29b0a1aeef51895e8be49211289df292c404b61c87d7194843f3b96");
+        if (false && genesis.GetHash() != hashGenesisBlock)
+        {
+            printf("recalculating params for testnet.\n");
+            printf("old testnet genesis nonce: %u\n", genesis.nNonce);
+            printf("old testnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+            // deliberately empty for loop finds nonce value.
+            for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ }
+            printf("new testnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+            printf("new testnet genesis nonce: %u\n", genesis.nNonce);
+            printf("new testnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+        }
+
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+        assert(hashGenesisBlock == uint256("0x0000003ec29b0a1aeef51895e8be49211289df292c404b61c87d7194843f3b96"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("alexykot.me", "testnet-seed.alexykot.me"));
-        vSeeds.push_back(CDNSSeedData("bitcoin.petertodd.org", "testnet-seed.bitcoin.petertodd.org"));
-        vSeeds.push_back(CDNSSeedData("bluematt.me", "testnet-seed.bluematt.me"));
-        vSeeds.push_back(CDNSSeedData("bitcoin.schildbach.de", "testnet-seed.bitcoin.schildbach.de"));
+//        vSeeds.push_back(CDNSSeedData("alexykot.me", "testnet-seed.alexykot.me"));
+//        vSeeds.push_back(CDNSSeedData("bitcoin.petertodd.org", "testnet-seed.bitcoin.petertodd.org"));
+//        vSeeds.push_back(CDNSSeedData("bluematt.me", "testnet-seed.bluematt.me"));
+//        vSeeds.push_back(CDNSSeedData("bitcoin.schildbach.de", "testnet-seed.bitcoin.schildbach.de"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(111);
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(196);
-        base58Prefixes[SECRET_KEY]     = list_of(239);
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x35)(0x87)(0xCF);
-        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x35)(0x83)(0x94);
+//        base58Prefixes[PUBKEY_ADDRESS] = list_of(111);
+//        base58Prefixes[SCRIPT_ADDRESS] = list_of(196);
+//        base58Prefixes[SECRET_KEY]     = list_of(239);
+//        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x35)(0x87)(0xCF);
+//        base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x35)(0x83)(0x94);
+
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,112);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,197);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,240);
+        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x05)(0x36)(0x88)(0xD0).convert_to_container<std::vector<unsigned char> >();
+        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x05)(0x36)(0x84)(0x95).convert_to_container<std::vector<unsigned char> >();
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
@@ -260,12 +289,26 @@ public:
         nTargetTimespan = 14 * 24 * 60 * 60; //! two weeks
         nTargetSpacing = 10 * 60;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
-        genesis.nTime = 1296688602;
+        genesis.nTime = 1516949303;
         genesis.nBits = 0x207fffff;
-        genesis.nNonce = 2;
+        genesis.nNonce = 3;
+
+        hashGenesisBlock = uint256("0x6abc13f01d22cd655f9b2a4be2df4cce2aba8414acfdb32c18c3e59edf675c20");
+        if (false && genesis.GetHash() != hashGenesisBlock)
+        {
+            printf("recalculating params for regnet.\n");
+            printf("old regnet genesis nonce: %u\n", genesis.nNonce);
+            printf("old regnet genesis hash:  %s\n", hashGenesisBlock.ToString().c_str());
+            // deliberately empty for loop finds nonce value.
+            for(genesis.nNonce == 0; genesis.GetHash() > bnProofOfWorkLimit; genesis.nNonce++){ }
+            printf("new regnet genesis merkle root: %s\n", genesis.hashMerkleRoot.ToString().c_str());
+            printf("new regnet genesis nonce: %u\n", genesis.nNonce);
+            printf("new regnet genesis hash: %s\n", genesis.GetHash().ToString().c_str());
+        }
+
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 18444;
-        assert(hashGenesisBlock == uint256("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
+        assert(hashGenesisBlock == uint256("0x6abc13f01d22cd655f9b2a4be2df4cce2aba8414acfdb32c18c3e59edf675c20"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
